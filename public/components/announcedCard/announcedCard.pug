@@ -1,0 +1,14 @@
+mixin announcedCard(currentMovie)
+    div.announced-card
+        div.announced
+            div.announced__image
+                a.announced__image(href=`/announced/${currentMovie.ID}`)
+                    img(src=(`../server/images/${currentMovie.poster}`))
+            div.announced__info
+                div.announced__info__name
+                    a.announced__info__name__russian(href=`/announced/${currentMovie.ID}`) #{currentMovie.title}
+                    div.announced__info__name__original #{currentMovie.originalTitle}
+                div.announced__info__premier
+                    div.announced__info__premier__day #{currentMovie.premierDay}
+                    div.announced__info__premier__month #{currentMovie.premierMonth}
+    

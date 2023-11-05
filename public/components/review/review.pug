@@ -1,0 +1,43 @@
+mixin review(currentReview)
+    if currentReview.type=='1'
+        div.profile__review-card(style="background: var(--goodFeedback);")
+            div.review
+                div.review__image
+                    a.review__image(href=`/movies/${currentReview.movieID}`)
+                        img(src=(`../server/images/${currentReview.moviePoster}`))
+                div.review__body
+                    div.review__body__info
+                        div.review__body__info__data
+                            div.review__body__info__data__title
+                                a.review__body__info__data__title__review-title(href=`/movies/${currentReview.movieID}`) #{currentReview.movieTitle}
+                                div.review__body__info__data__title__rating #{currentReview.rating}
+                            div.review__body__info__data__additional
+                    div.review__body__description #{currentReview.text}
+    else if currentReview.type=='2'
+        div.profile__review-card(style="background: var(--neutralFeedback);")
+            div.review
+                div.review__image
+                    a.review__image(href=`/movies/${currentReview.movieID}`)
+                        img(src=(`../server/images/${currentReview.moviePoster}`))
+                div.review__body
+                    div.review__body__info
+                        div.review__body__info__data
+                            div.review__body__info__data__title
+                                a.review__body__info__data__title__review-title(href=`/movies/${currentReview.movieID}`) #{currentReview.movieTitle}
+                                div.review__body__info__data__title__rating #{currentReview.rating}
+                            div.review__body__info__data__additional
+                    div.review__body__description #{currentReview.text}
+    else if currentReview.type=='3'
+        div.profile__review-card(style="background: var(--badFeedback);")
+            div.review
+                div.review__image
+                    a.review__image(href=`/movies/${currentReview.movieID}`)
+                        img(src=(`../server/images/${currentReview.moviePoster}`))
+                div.review__body
+                    div.review__body__info
+                        div.review__body__info__data
+                            div.review__body__info__data__title
+                                a.review__body__info__data__title__review-title(href=`/movies/${currentReview.movieID}`) #{currentReview.movieTitle}
+                                div.review__body__info__data__title__rating #{currentReview.rating}
+                            div.review__body__info__data__additional
+                    div.review__body__description #{currentReview.text}

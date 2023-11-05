@@ -1,0 +1,10 @@
+include ../doctorCard/doctorCard
+
+div.content-wrapper
+    page.page
+        div.container
+            h1(class="container__collection-title") Врачи нашей больницы
+            div.container__collection-description Люди, помогающие сделать наше общество лучше
+            div.movies-container
+                each doctor, _ in doctors
+                    +doctorCard(doctor)

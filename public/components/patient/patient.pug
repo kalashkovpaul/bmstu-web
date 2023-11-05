@@ -1,0 +1,48 @@
+include ../slider/slider
+include ../reviewCard/reviewCard
+
+div.content-wrapper
+    div.page
+        div.patient-content
+            div.poster-and-buttons
+                div.poster
+                    img.poster__img(src=`http://localhost/img/tmp_patient.png`)
+                div.trailer.not-route
+                    div.trailer__btn Убрать из лечения
+                div.patient-collection
+
+            div.info
+                div.patient-header
+                    div.patient-title #{patient.Name} #{patient.Surname} #{patient.Patronymic}
+                div.patient-facts
+                    div.patient-facts__title О пациенте
+                    div.patient-facts__fact
+                        div.patient-facts__fact__name Имя
+                        div.patient-facts__fact__value #{patient.Name}
+                    div.patient-facts__fact
+                        div.patient-facts__fact__name Фамилия
+                        div.patient-facts__fact__value #{patient.Surname}
+                    div.patient-facts__fact
+                        div.patient-facts__fact__name Отчество
+                        div.patient-facts__fact__value #{patient.Patronymmic}
+                    div.patient-facts__fact
+                        div.patient-facts__fact__name Рост
+                        div.patient-facts__fact__value #{patient.Height} см.
+                    div.patient-facts__fact
+                        div.patient-facts__fact__name Вес
+                        div.patient-facts__fact__value #{patient.Weight} кг.
+                    div.patient-facts__fact
+                            div.patient-facts__fact__name Степень опасности
+                            div.patient-facts__fact__value #{patient.DegreeOfDanger} из 10
+                    div.patient-facts__fact
+                            div.patient-facts__fact__name Палата
+                            div.patient-facts__fact__value #{patient.RoomNumberr}
+
+            div.patient-review
+                div.patient-review__title Отзывы
+                //- div.review-list
+                //-     each singleReview, _ in reviews
+                //-         +reviewCard(singleReview)
+            div.send-review
+                div.send-review__title Оставить отзыв
+                div.send-review__input

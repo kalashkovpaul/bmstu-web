@@ -1,0 +1,204 @@
+@import "../../css/consts.scss";
+@import "profileReview/profileReview.scss";
+@import "profileBookmark/profileBookmark.scss";
+@import "profileInfo/profileInfo.scss";
+@import "../review/review.scss";
+@import "../bookmark/bookmark.scss";
+
+.profile-wrapper {
+	width: 100%;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	align-items: center;
+
+	.profile {
+		display: grid;
+		grid-template-columns: minmax(280px, 380px) minmax(380px, 780px);
+		column-gap: 30px;
+		grid-template-areas: "info content";
+
+		&__popup {
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			left: 0;
+			top: 0;
+			background-color: transparent;
+			z-index: -1;
+			opacity: 0;
+			transition: all 0.2s ease 0s;
+			&__container {
+				display: flex;
+				width: 100%;
+				height: 100%;
+				&__body {
+					display: grid;
+					grid-template-areas:
+						"title"
+						"input"
+						"button";
+					border-radius: 10px;
+
+					grid-template-columns: minmax(200px, 355px);
+					grid-template-rows: 30px 340px 30px;
+					justify-content: center;
+					align-items: center;
+					row-gap: 20px;
+					.bookmark-title {
+						justify-content: center;
+						grid-area: title;
+						margin-top: 15px;
+						display: flex;
+						font-size: 26px;
+						font-weight: 600;
+					}
+					.inputs {
+						grid-area: input;
+						flex-direction: column;
+						display: flex;
+						gap: 10px;
+						input {
+							// grid-area: input;
+							display: flex;
+							outline: none;
+							margin-left: 10px;
+							margin-right: 10px;
+							border-radius: 12px;
+							padding: 10px;
+						}
+					}
+					.bookmark-submit {
+						display: flex;
+						grid-area: button;
+						justify-content: center;
+						padding: 5px;
+						margin-left: 5px;
+						margin-right: 5px;
+						border-radius: 12px;
+						background-color: $raspberry;
+						color: $font_color_white;
+						font-family: $main_font;
+						font-weight: 600;
+						font-size: 20px;
+						line-height: 28px;
+						border: none;
+						cursor: pointer;
+						&:hover {
+							filter: brightness(80%);
+						}
+						&:active {
+							filter: brightness(72%);
+						}
+					}
+					margin: auto;
+					height: 460px;
+					background-color: white;
+					text-align: center;
+					position: relative;
+
+					.popup-close {
+						position: absolute;
+						cursor: pointer;
+						top: 15px;
+						right: 15px;
+					}
+				}
+			}
+		}
+
+		&__popup.open {
+			z-index: 2;
+			opacity: 1;
+			background-color: rgba(0, 0, 0, 0.426);
+		}
+
+		&-info {
+			grid-area: info;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: $profile_info_background;
+			height: 450px;
+			width: 100%;
+			margin-top: 30px;
+			margin-left: 10px;
+			margin-right: 10px;
+			border-radius: 20px;
+		}
+		&-content {
+			grid-area: content;
+			display: grid;
+			grid-template-areas:
+				"bookmarks"
+				"review";
+			grid-template-columns: minmax(360px, 780px);
+			.profile-bookmarks {
+				grid-area: bookmarks;
+				display: grid;
+				grid-template-areas:
+					"name"
+					"el";
+				&__title {
+					display: flex;
+					margin-top: 30px;
+					grid-area: name;
+					height: 40px;
+					color: $black;
+					font-family: $main_font;
+					font-weight: 600;
+					font-size: 28px;
+					line-height: 32px;
+				}
+			}
+			.profile-reviews {
+				grid-area: review;
+				display: grid;
+				grid-template-areas:
+					"name"
+					"el";
+				margin-right: 10px;
+				&__title {
+					display: flex;
+					grid-area: name;
+					height: 40px;
+					color: $font_color_white;
+					font-family: $main_font;
+					font-weight: 600;
+					font-size: 28px;
+					line-height: 32px;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.profile-wrapper {
+		.profile {
+			grid-template-columns: minmax(280px, 767px);
+			grid-template-areas:
+				"info"
+				"content";
+			justify-content: center;
+			&-info {
+				width: auto;
+			}
+			&-content {
+				.profile-bookmarks {
+					&__title {
+						justify-content: center;
+					}
+				}
+				.profile-reviews {
+					margin-right: 0px;
+					&__title {
+						justify-content: center;
+					}
+				}
+			}
+		}
+	}
+}

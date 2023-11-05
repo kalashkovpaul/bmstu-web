@@ -1,0 +1,5 @@
+mixin bookmark(i)
+    a.bookmark-element(href=`/patients/${i.Id}`)
+        .bookmark-element__wrapper
+            img(src=`http://localhost/img/tmp_patient.png`)
+        .bookmark-element__description #{i.Surname} #{i.Name}

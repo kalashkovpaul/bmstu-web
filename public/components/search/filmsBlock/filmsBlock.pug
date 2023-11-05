@@ -1,0 +1,8 @@
+include ../../doctorCard/doctorCard
+
+if !isEmpty
+    each movie, _ in data
+        +doctorCard(movie)
+else
+    span.empty-search-message Упс, ничего не найдено
+

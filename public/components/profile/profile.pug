@@ -1,0 +1,21 @@
+.profile-wrapper
+    .profile
+        .profile__popup
+            .profile__popup__container
+                .profile__popup__container__body
+                    span.bookmark-title Создание пациента
+                    div.inputs
+                        input.bookmark-name(type="text" placeholder="Имя пациента" maxlength="46")
+                        input.bookmark-surname(type="text" placeholder="Фамилия пациента" maxlength="46")
+                        input.bookmark-patronimic(type="text" placeholder="Отчество пациента" maxlength="46")
+                        input.bookmark-height(type="text" placeholder="Рост пациента" maxlength="46")
+                        input.bookmark-weight(type="text" placeholder="Вес пациента" maxlength="46")
+                        input.bookmark-room(type="text" placeholder="В какую палату поместить пациента" maxlength="46")
+                        input.bookmark-danger(type="text" placeholder="Степень опасности (1 - 10)" maxlength="46")
+                    button.bookmark-submit Добавить пациента
+                    div.popup-close &#10006
+        .profile-info
+            include profileInfo/profileInfo
+        .profile-content
+            .profile-bookmarks
+                span.profile-bookmarks__title Мои пациенты

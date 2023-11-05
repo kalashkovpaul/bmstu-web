@@ -1,0 +1,329 @@
+@import "../../css/consts.scss";
+
+.content-wrapper {
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.page {
+    margin: 20px 0 50px;
+    flex: 1 1 auto;
+}
+
+.container {
+    font-family: $main_font;
+    font-weight: bold;
+    max-width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 30px;
+    row-gap: 0;
+    grid-template-areas:
+        "B0 B0 B1 B1 B1 B1 B1 B1 B1 B1 B2 B2"
+        "C0 C0 C1 C1 C1 C1 C1 C1 C1 C1 C2 C2"
+        "A0 A0 A1 A1 A1 A1 A1 A1 A1 A1 A1 A1"
+        "D0 D0 D1 D1 D1 D1 D1 D1 D1 D1 D2 D2";
+    justify-items: center;
+    justify-content: center;
+
+    .popup {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+
+        left: 0;
+        top: 0;
+        background-color: transparent;
+        z-index: 2;
+        opacity: 0;
+        transform: translate(0px, -100%);
+        transition: all 0.8s ease 0s;
+        &__container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+            &__body {
+                display: grid;
+                grid-template-areas:
+                    "title"
+                    "buttons";
+                border-radius: 10px;
+
+                grid-template-columns: minmax(200px, 355px);
+                grid-template-rows: 30px 40px;
+
+                justify-content: center;
+                align-items: center;
+                row-gap: 30px;
+                &__buttons {
+                    width: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    grid-area: buttons;
+                    display: flex;
+                    flex-direction: row;
+                    .bookmark-submit {
+                        display: flex;
+                        justify-content: center;
+                        padding: 5px;
+                        margin-left: 5px;
+                        margin-right: 5px;
+                        width: 100px;
+                        border-radius: 12px;
+                        background-color: $raspberry;
+                        color: $font_color_white;
+                        font-family: $main_font;
+                        font-weight: 600;
+                        font-size: 20px;
+                        line-height: 18px;
+                        border: none;
+                        cursor: pointer;
+                        &:hover {
+                            filter: brightness(80%);
+                        }
+                        &:active {
+                            filter: brightness(72%);
+                        }
+                    }
+                    .bookmark-cancel {
+                        display: flex;
+                        justify-content: center;
+                        padding: 5px;
+                        margin-left: 5px;
+                        margin-right: 5px;
+                        border-radius: 12px;
+                        width: 100px;
+                        background-color: $raspberry;
+                        color: $font_color_white;
+                        font-family: $main_font;
+                        font-weight: 600;
+                        font-size: 20px;
+                        line-height: 18px;
+                        border: none;
+                        cursor: pointer;
+                        &:hover {
+                            filter: brightness(80%);
+                        }
+                        &:active {
+                            filter: brightness(72%);
+                        }
+                    }
+                }
+                .bookmark-title {
+                    justify-content: center;
+                    text-align: left;
+                    grid-area: title;
+                    display: flex;
+                    padding-top: 30px;
+                    padding-left: 10px;
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+                margin: 150px auto auto auto;
+                background-color: white;
+                position: relative;
+            }
+        }
+    }
+
+    .popup-open {
+        transform: translate(0px, 0%);
+        opacity: 1;
+    }
+
+    @media (max-width: 1200px) {
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-areas:
+            "B0 B1 B1 B1 B1 B1 B1 B2"
+            "A0 A1 A1 A1 A1 A1 A1 A2"
+            "C0 C1 C1 C1 C1 C1 C1 C2"
+            "C0 D1 D1 D1 D1 D1 D1 D2";
+    }
+
+    @media (max-width: 600px) {
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-areas:
+            "B1 B1 B1 B1 B1 B1 B2"
+            "A1 A1 A1 A1 A1 A1 A2"
+            "C1 C1 C1 C1 C1 C1 C2"
+            "D1 D1 D1 D1 D1 D1 D1";
+    }
+    .notify {
+        display: flex;
+        position: fixed;
+        bottom: 20px;
+        height: 25px;
+        opacity: 0;
+        align-items: center;
+        background-color: #585858;
+        border-radius: 5px;
+
+        &__message {
+            color: $white;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+    .notify-open {
+        opacity: 1;
+        z-index: 1;
+    }
+
+    &__bookmark-title {
+        font-family: $main_font;
+        display: block;
+        height: 100%;
+        width: 100%;
+        text-decoration: none;
+        color: white;
+        grid-area: B1;
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: 20px;
+        display: flex;
+        @media (max-width: 600px) {
+            font-size: 30px;
+            margin-left: 30px;
+        }
+
+        span {
+            min-width: 20px;
+        }
+        &__color {
+            max-width: 100%;
+            color: white;
+            outline: none;
+            border: none;
+            background-color: transparent;
+            height: 40px;
+            font-size: 38px;
+            text-overflow: ellipsis;
+            &::placeholder {
+                opacity: 1;
+                color: white;
+            }
+        }
+        &__color__title-user {
+            max-width: 100%;
+            color: white;
+            outline: none;
+            border: none;
+            background-color: transparent;
+            height: 40px;
+            font-size: 38px;
+            text-overflow: ellipsis;
+            font-family: $main_font;
+            font-weight: 600;
+            
+            &:hover {
+                outline: 1px solid $raspberry;
+                cursor: pointer;
+            }
+            &:focus {
+                outline: 1px solid $raspberry;
+            }
+            &::placeholder {
+                opacity: 1;
+                color: white;
+            }
+        }
+    }
+    &__bookmark-description {
+        display: flex;
+        text-align: left;
+        width: 100%;
+        margin-bottom: 40px;
+        font-family: $main_font;
+        font-size: 28px;
+        color: white;
+        grid-area: C1;
+        @media (max-width: 600px) {
+            margin-left: 30px;
+        }
+    }
+    &__bookmark-settings {
+        grid-area: A1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 40px;
+        @media (max-width: 600px) {
+            margin-left: 30px;
+        }
+        .title {
+            margin-left: 5px;
+            color: $white;
+        }
+        &__delete-playlist-btn {
+            display: flex;
+            background-color: $raspberry;
+            color: $white;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 16px;
+            height: 40px;
+            border-radius: 12px;
+            border: 0;
+            &:hover {
+                filter: brightness(80%);
+                cursor: pointer;
+            }
+            &:active {
+                filter: brightness(72%);
+            }
+        }
+        &__private-btn {
+            display: flex;
+            min-width: 48px;
+            height: 20px;
+            border-radius: 12px;
+            background: #bfbfbf;
+            z-index: 0;
+            margin-left: 20px;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition-duration: 300ms;
+        }
+        &__private-btn::after {
+            content: "";
+            height: 20px;
+            width: 20px;
+            border-radius: 18px;
+            background: $white;
+            left: -5px;
+            transition-duration: 300ms;
+            box-shadow: 0 0 10px 0 #999999;
+            position: absolute;
+            z-index: 1;
+        }
+        .private-on {
+            background: $raspberry;
+            box-shadow: inset 0 0 10px 0 #999999;
+        }
+
+        .private-on::after {
+            left: 30px;
+            background: $white;
+        }
+    }
+}
+
+.movies-container {
+    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    row-gap: 30px;
+    column-gap: 20px;
+    grid-area: D1;
+
+    @media (max-width: 1200px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

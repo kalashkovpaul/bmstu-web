@@ -1,0 +1,16 @@
+mixin doctorCard(currentDoctor)
+    div.doctor-card
+        div.doctor
+            div.doctor__image
+                a.doctor__image(href=`/doctors/${currentDoctor.Id}`)
+                    img(src=(`http://localhost/img/typical_doctor.webp`))
+                    //- img(src=(`../server/images/${currentDoctor.poster}`))
+            div.doctor__body
+                div.doctor__body__info
+                    div.doctor__body__info__data
+                        div.doctor__body__info__data__title
+                            a.doctor__body__info__data__title__doctor-title(href=`/doctors/${currentDoctor.Id}`) #{currentDoctor.Surname}
+                            //- div.doctor__body__info__data__title__rating #{currentDoctor.rating}
+                        div.doctor__body__info__data__additional
+                        div.doctor__body__info__data__additional #{currentDoctor.Role}
+                div.doctor__body__description #{currentDoctor.Speciality}
