@@ -71,6 +71,10 @@ export class PatientController extends BaseController {
                 event: events.auth.gotUser,
                 handler: this.view.onGotUser,
             },
+            {
+                event: events.patientPage.deletePatient,
+                handler: this.model.deletePatient,
+            }
         );
         this.subscribe();
     }

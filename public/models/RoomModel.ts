@@ -1,16 +1,16 @@
 import EventBus from "@/modules/eventBus";
-import { singleCollection, singleCollectionMovie, singleCollectionPageData } from "@/types";
+import { room, singleCollectionMovie, singleCollectionPageData } from "@/types";
 import { events } from "../consts/events";
 import { statuses } from "../consts/statuses";
 import { getSingleCollection } from "../modules/connection";
 import { BaseModel } from "./BaseModel";
 
 /**
- * @description Класс модели одной подборки фильмов.
+ * @description Класс модели страницы палат.
  */
-export class SingleCollectionModel extends BaseModel {
+export class RoomModel extends BaseModel {
     /**
-     * @description Создаёт экземляр модели одной подборки фильмов.
+     * @description Создаёт экземляр модели палат.
      * @param { EventBus } eventBus Глобальная шина событий
      */
     constructor(eventBus: EventBus) {
@@ -18,25 +18,19 @@ export class SingleCollectionModel extends BaseModel {
     }
 
     /**
-     * @description Получает информацию для контента страницы 
-     * одной подборки.
-     * @param { object } collection Информация о подборке: 
-     * название, ID
+     * @description Получает информацию для контента страницы
+     * страницы палат.
+     * @param { object } rooms Информация о палатах
      */
-    getContent = (collection: singleCollection) => {
-        if (!collection?.ID) {
-            this.eventBus.emit(events.app.errorPage);
-            return;
-        }
-        getSingleCollection(collection.ID).then(
+    getContent = () => {
+        getSingleCollection().then(
             (response) => {
                 if (!response) {
                     this.eventBus.emit(events.app.errorPage);
                 } if (response?.status === statuses.OK && response.parsedResponse) {
-                    const parsed = <singleCollectionPageData> response.parsedResponse;
-                    this.shortenMoviesDescription(parsed.movielist);
                     this.eventBus.emit(
-                        events.singleCollectionPage.render.content, response.parsedResponse
+                        events.singleCollectionPage.render.content,
+                            response.parsedResponse
                     );
                 } else if (response?.status === statuses.NOT_FOUND) {
                     this.eventBus.emit(events.app.errorPageText, "Такой подборки нет :(");

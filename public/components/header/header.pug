@@ -6,7 +6,7 @@ header.navbar
         .navbar__vertical-menu__btn-container
             a.navbar__menu-btn.collections(href="/doctors") Врачи
             if userFromStorage
-                a.navbar__menu-btn.genres(href="/genres") Палаты
+                a.navbar__menu-btn.genres(href="/rooms") Палаты
 
     a.navbar__logo(href="/" data-section="main")
         div.navbar__logo__main-title PSYCHADMIN
@@ -15,7 +15,7 @@ header.navbar
     div.navbar__menu
         a.navbar__menu-btn.collections(href="/doctors") Врачи
         if userFromStorage
-            a.navbar__menu-btn.genres(href="/genres") Палаты
+            a.navbar__menu-btn.genres(href="/rooms") Палаты
     if userFromStorage
         include userBlock/userBlock.pug
     else

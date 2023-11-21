@@ -1,5 +1,5 @@
 import EventBus from "@/modules/eventBus";
-import { singleCollectionMovie, singleCollectionPageData, singleGenre } from "@/types";
+import { singleCollectionMovie, } from "@/types";
 import { events } from "../consts/events";
 import { statuses } from "../consts/statuses";
 import { getDoctors } from "../modules/connection";

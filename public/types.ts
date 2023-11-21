@@ -28,21 +28,21 @@ type api = {
     changePrivateSettings: string,
     changeTitleSettings: string,
     patients: string,
-    reviews: string,
+    treatments: string,
     logout: string,
     login: string,
     register: string,
     singleBookmark: string,
-    singleCollection: string,
+    rooms: string,
     collections: string,
     patient: string,
-    actor: string,
+    doctor: string,
     sendRating: string,
     sendReviews: string,
     addMovieToBookmark: string,
     removeMovieFromBookmark: string,
     createPatient: string,
-    deleteBookmark: string,
+    deletePatient: string,
     genres: string,
     doctors: string,
     premiers: string,
@@ -54,12 +54,12 @@ export type routeList = {
     homePage: string,
     collectionsPage: string,
     singleBookmarkPage: string,
-    singleCollectionPage: string,
+    rooms: string,
     profilePage: string,
     loginPage: string,
     registrationPage: string,
     patientPage: string,
-    actorPage: string,
+    singleDoctorPage: string,
     genresPage: string,
     doctorsPage: string,
     premiersPage: string,
@@ -146,8 +146,8 @@ export type controllerItem = {
     handler: callback,
 }
 
-export type actorData = {
-    ID: string,
+export type doctorData = {
+    Id: string,
 }
 
 export type error = [{
@@ -180,15 +180,26 @@ export type profileUserData = {
     isThisUser: boolean,
 }
 
-export type reviewRequest = {
-    movieId: string,
-    reviewText: string,
-    reviewType: string,
-    userId: string,
+export type renderBookmarData = {
+    isThisUser: boolean,
+    userID: string,
 }
 
-export type singleCollection = {
-    ID: string,
+export type reviewRequest = {
+    PatientNumber: number,
+    PsychologicalTreatment: string,
+    Survey: string,
+    Tablets: string,
+    UpdateAt: string,
+}
+
+export type room = {
+    Id: number,
+    Num: number,
+    Floor: number,
+    NumberBeds: number,
+    TypeRoom: string,
+    NumberPatients: number
 }
 
 export type singleBookmark = {
@@ -208,8 +219,8 @@ export type singleCollectionMovie = {
     description: string,
 }
 
-export type actor = {
-    ID: string,
+export type doctor = {
+    Id: string,
     avatar: string,
     birthdate: string,
     birthplace: string,
@@ -253,10 +264,12 @@ export type relatedItem = {
     title: string,
 }
 
-export type actorPageData = {
-    actor: actor,
-    movies: movieInfo[],
-    related: relatedItem[],
+export type doctorPageData = {
+    Id: number,
+    TokenId: string,
+    Role: string,
+    Speciality: string,
+    Surname: string,
 }
 
 export type authPageData = {
@@ -276,7 +289,16 @@ export type review = {
     username: string,
 }
 
-export type moviePageData = {
+export type treatment = {
+    Id: number,
+    PatientNumber: number,
+    PsychologicalTreatment: string,
+    Survey: string,
+    Tablets: string,
+    UpdateAt: string,
+}
+
+export type patientPageData = {
     Id: string,
     Name: string,
     Surname: string,
@@ -378,8 +400,8 @@ export type bookmarkCreateRequest = {
     DegreeOfDanger: number,
 }
 
-export type bookmarkDeleteRequest = {
-    bookmarkId: string,
+export type patientDeleteRequest = {
+    patientId: string,
 }
 export type bookmarkChangePrivateRequest = {
     bookmarkId: string,

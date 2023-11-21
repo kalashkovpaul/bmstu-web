@@ -1,0 +1,30 @@
+include ../slider/slider
+include ../doctorCard/doctorCard
+
+div.content-wrapper
+    div.page
+        div.doctor-content
+            div.poster-and-buttons
+                div.poster
+                    img.poster__img(src=`http://localhost/img/typical_doctor.webp`)
+            div.info
+                div.doctor-title #{doctor.surname}
+                div.doctor-facts
+                    div.doctor-facts__title О докторе:
+                    div.doctor-facts__fact
+                        div.doctor-facts__fact__name Фамилия:
+                        div.doctor-facts__fact__value #{doctor.Surname}
+                    div.doctor-facts__fact
+                        div.doctor-facts__fact__name Специальность:
+                        div.doctor-facts__fact__value #{doctor.Speciality}
+                    div.doctor-facts__fact
+                        div.doctor-facts__fact__name Специальность:
+                        div.doctor-facts__fact__value #{doctor.Speciality}
+                    div.doctor-facts__fact
+                        div.doctor-facts__fact__name Должность:
+                        div.doctor-facts__fact__value #{doctor.Role}
+            div.related
+                div.related__title Похожие врачи:
+                +slider(doctor.related)
+
+

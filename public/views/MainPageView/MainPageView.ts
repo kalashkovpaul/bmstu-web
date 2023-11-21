@@ -27,7 +27,7 @@ export class MainPageView extends BaseView {
 
   initCarousel = () => {
     const slidesContainer = document.getElementById("slides-container") as HTMLDivElement;
-    const slide = document.querySelector(".slide") as HTMLDivElement;
+    const slide = document.querySelector(".carousel-slide") as HTMLDivElement;
     const prevButton = document.getElementById("slide-arrow-prev") as HTMLButtonElement;
     const nextButton = document.getElementById("slide-arrow-next") as HTMLButtonElement;
     if (!slidesContainer || !slide || !prevButton || !nextButton) {

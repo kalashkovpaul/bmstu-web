@@ -1,4 +1,4 @@
-import { bookmarkCreateRequest, bookmarkRequest, moviePageData, personalCollectionItem, review } from '@/types';
+import {bookmarkRequest, patientPageData, personalCollectionItem, review, treatment } from '@/types';
 import EventBus from '@/modules/eventBus';
 import {BaseView} from '../BaseView/BaseView';
 import {events} from '@/consts/events';
@@ -13,7 +13,7 @@ import createReviewCard from '@/components/reviewCard/createReviewCard.pug';
 import collectionDropdown from '@/components/collectionDropdown/collectionDropdown.pug';
 
 /**
- * @description Класс представления страницы одного фильма
+ * @description Класс представления страницы одного пациента
  */
 export class PatientView extends BaseView {
   private patientId: string;
@@ -41,27 +41,40 @@ export class PatientView extends BaseView {
      * @description Отрисовывает контент страницы пациенте.
      * @param { Object } data Информация о пациенте
      */
-  renderContent = (data: moviePageData) => {
+  renderContent = (data: patientPageData) => {
     if (!data) {
       return;
     }
     this.patientId = data.Id;
+    console.log(data);
     const template = patientPageContent({patient: data});
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
       this.renderReviewInput(data.Id);
+      this.renderDeleteClient();
       // this.renderCollectionsArea(data.collectionsInfo);
-      this.eventBus.emit(events.patientPage.reviewSuccess);
+      // this.eventBus.emit(events.patientPage.reviewSuccess);
     } else {
       this.eventBus.emit(events.app.errorPage);
     }
   };
 
+  renderDeleteClient = () => {
+    const button = document.querySelector('.trailer__btn');
+    if (!button) {
+      window.setTimeout(this.renderDeleteClient, 500);
+      return;
+    }
+    button?.addEventListener('click', () => {
+      this.eventBus.emit(events.patientPage.deletePatient, this.patientId);
+    });
+  };
+
   /**
      * @description Отрисовывает панель рейтинга и навешивает все необходимые
      * обработчики (для динамического изменения рейтинга).
-     * @param { string } movieID ID текущего фильма
+     * @param { string } movieID ID текущего пациента
      */
   renderRating = (movieID: string) => {
     const rating = document.querySelector('.stars') as HTMLElement;
@@ -147,7 +160,7 @@ export class PatientView extends BaseView {
 
   /**
      * @description Выводит сообщение о просьбе зарегистрироваться.
-     * @param { string } movieID ID текущего фильма.
+     * @param { string } movieID ID текущего пациента.
      */
   askToLog = () => {
     const messageArea = document.querySelector('.user-rating') as HTMLElement;
@@ -161,18 +174,18 @@ export class PatientView extends BaseView {
      * @description Отображает оставленную пользователем оценку,
      * обновляет глобальную оценку.
      * @param { string } myRating Оставленная оценка
-     * @param { string } movieRating Глобальная оценка фильма
+     * @param { string } movieRating Глобальная оценка пациента
      */
   onRatingSuccess = (myRating: string, movieRating: string) => {
     const messageArea = document.querySelector('.user-rating') as HTMLElement;
-    messageArea.innerHTML = `Ваша оценка: ${myRating}. Рейтинг фильма: ${movieRating}`;
+    messageArea.innerHTML = `Ваша оценка: ${myRating}. Рейтинг пациента: ${movieRating}`;
     const shortRating = document.querySelector('.short-rating') as HTMLElement;
     shortRating.textContent = `${movieRating}`;
   };
 
   /**
      * @description Отрисовывает область оставления отзыва.
-     * @param { string } movieID ID текущего фильма
+     * @param { string } movieID ID текущего пациента
      */
   renderReviewInput = (movieID: string) => {
     const reviewInput = document.querySelector('.send-review__input');
@@ -186,6 +199,10 @@ export class PatientView extends BaseView {
       reviewInput.innerHTML = reviewInvitation({movieID: movieID});
     }
   };
+
+  /**
+   *
+   */
 
   /**
      * @description Добавляет обработчики событий на dropdown.
@@ -286,18 +303,19 @@ export class PatientView extends BaseView {
     const reviewText = input.value;
     const reviewTypeText = document.querySelector('.select-selected')?.textContent;
     let reviewType = 2;
-    if (reviewTypeText?.includes('Отлично')) {
+    if (reviewTypeText?.includes('Лекарства')) {
       reviewType = 1;
-    } else if (reviewTypeText?.includes('Неплохо')) {
+    } else if (reviewTypeText?.includes('Опрос')) {
       reviewType = 2;
-    } else if (reviewTypeText?.includes('Ужасно')) {
+    } else if (reviewTypeText?.includes('Вывод')) {
       reviewType = 3;
     }
     const review = {
-      reviewText: reviewText,
-      reviewType: reviewType.toString(),
-      movieId: this.patientId,
-      userId: authModule?.user?.Id.toString(),
+      PatientNumber: this.patientId,
+      UpdateAt: `${Date.now()}`,
+      Tablets: reviewType === 1 ? reviewText : "",
+      Survey: reviewType === 2 ? reviewText : "",
+      PsychologicalTreatment: reviewType === 3 ? reviewText : "",
     };
     this.eventBus.emit(events.patientPage.sendReview, review);
   };
@@ -306,16 +324,24 @@ export class PatientView extends BaseView {
      * @description Отображает результат отправления отзыва.
      * @param { object } review Сформированный отзыв
      */
-  renderReviewSuccess = (review: review) => {
-    const reviewInput = document.querySelector('.send-review__input') as HTMLElement;
-    reviewInput.innerHTML = reviewSuccessBlock();
+  renderReviewSuccess = (review: treatment) => {
+    // const reviewInput = document.querySelector('.send-review__input') as HTMLElement;
+    // reviewInput.innerHTML = reviewSuccessBlock();
 
     const reviewList = document.querySelector('.review-list');
-    if (!review) {
-      return;
-    }
+    // if (!review) {
+    //   return;
+    // }
     reviewList?.append(<HTMLElement>createElementFromHTML(
-      <string> createReviewCard({singleReview: review})));
+      <string> createReviewCard({singleReview: {
+          ...review,
+          Tablets: `Лекарства: ${review.Tablets}`,
+          UpdateAt: `${Intl.DateTimeFormat('ru-RU').format(new Date(review.UpdateAt))}`,
+          Survey: `Опрос: ${review.Survey}`,
+          PsychologicalTreatment: `Вывод: ${review.PsychologicalTreatment}`,
+        }
+      })
+    ));
   };
 
   /**

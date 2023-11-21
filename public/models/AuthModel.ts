@@ -6,7 +6,7 @@ import { errorInfo, emptyField } from "../consts/errors";
 import { login, register } from "../modules/connection";
 import { statuses } from "../consts/statuses";
 import EventBus from "@/modules/eventBus";
-import { loginData, registerData, routerData } from "@/types";
+import { loginData, registerData, routerData, userData } from "@/types";
 
 /**
  * @description Класс модели страницы авторизации / регистрации.
@@ -47,7 +47,7 @@ export class AuthModel extends BaseModel {
             login: true,
         });
     };
-    
+
     /**
      * @description Инициализирует внутренний список ошибок.
      */
@@ -58,7 +58,7 @@ export class AuthModel extends BaseModel {
     };
 
     /**
-     * @description Создаёт и отправляет на отрисовку контент страницы 
+     * @description Создаёт и отправляет на отрисовку контент страницы
      * авторизации / регистрации.
      */
     getRegistrationContent = () => {
@@ -92,7 +92,7 @@ export class AuthModel extends BaseModel {
     /**
      * @description Отправляет ошибку конкретного поля на добавление.
      * @param { string } inputName Название поля ввода с ошибкой
-     * @param { string } errorMessage Добавляемое ообщение об ошибке 
+     * @param { string } errorMessage Добавляемое ообщение об ошибке
      */
     addError = (inputName: string, errorMessage: string) => {
         const inputErrors = this.errorMessages.get(inputName);
@@ -150,19 +150,19 @@ export class AuthModel extends BaseModel {
             if (!response) {
                 return;
             }
-            if (response.status === statuses.OK && response.parsedResponse?.ID) {
-                this.eventBus.emit(events.authPage.logRegSuccess, 
+            if (response.status === statuses.OK && (response.parsedResponse as userData).Id) {
+                this.eventBus.emit(events.authPage.logRegSuccess,
                     response.parsedResponse);
                 this.redirect();
             } else {
-                this.eventBus.emit(events.authPage.submitError, 
+                this.eventBus.emit(events.authPage.submitError,
                     "Неправильный email или пароль!");
             }
         }).catch(() => {
             this.eventBus.emit(events.app.errorPage);
         });
     }
-    
+
     /**
      * @description Отправляет и обрабатывает данные об регистрации.
      * @param { object } inputsData Данные об регистрации.
@@ -175,12 +175,12 @@ export class AuthModel extends BaseModel {
             if (!response) {
                 return;
             }
-            if (response.status === statuses.OK && response.parsedResponse?.ID) {
-                this.eventBus.emit(events.authPage.logRegSuccess, 
+            if (response.status === statuses.OK && (response.parsedResponse as userData).Id) {
+                this.eventBus.emit(events.authPage.logRegSuccess,
                     response.parsedResponse);
                 this.redirect();
             } else {
-                this.eventBus.emit(events.authPage.submitError, 
+                this.eventBus.emit(events.authPage.submitError,
                     "Пользователь с таким email уже существует!");
             }
         }).catch(() => {
@@ -189,7 +189,7 @@ export class AuthModel extends BaseModel {
     }
 
     /**
-     * @description Проверяет, есть ли в форме авторизации / регистрации 
+     * @description Проверяет, есть ли в форме авторизации / регистрации
      * ошибки.
      * @param { object } Данные о полях ввода формы
      * @returns { boolean } Есть ли в форме ошибки
@@ -224,7 +224,7 @@ export class AuthModel extends BaseModel {
         for (const error of (errorInfo[inputName])) {
             if (error.regexp.toString() != (/empty/).toString() && !inputValue.match(error.regexp)) {
                 this.addError(inputName, error.message)
-            } else if (error.regexp.toString() == (/empty/).toString() && inputName === 
+            } else if (error.regexp.toString() == (/empty/).toString() && inputName ===
                 authConfig.repeatePasswordInput.name) {
                 const authForm = document.forms.namedItem(authFormName);
                 if (!authForm) { return; }

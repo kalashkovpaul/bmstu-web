@@ -195,7 +195,7 @@ export class HeaderView extends BaseView {
 
   }
 
-  hideSearch = (isWideNavbar: boolean = false) => {
+  hideSearch = (isWideNavbar = false) => {
     this.isSearchClicked = false;
     const navbar = document.querySelector('.navbar') as HTMLElement;
     const logo = document.querySelector('.navbar__logo') as HTMLElement;

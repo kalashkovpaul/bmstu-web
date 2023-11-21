@@ -1,0 +1,11 @@
+include ../roomCard/roomCard
+
+div.content-wrapper
+    page.page
+        div.container
+            h1(class="container__collection-title") #{`Палаты`}
+                span.container__collection-title__color #{title}
+            div.container__collection-description Палаты и их характеристики
+            div.movies-container
+                each room, _ in roomlist
+                    +roomCard(room)

@@ -1,0 +1,18 @@
+mixin roomCard(room)
+    div.room-card
+        div.room
+            div.room__image
+                a.room__image
+                    img(src=(`http://localhost/img/typical_room.jpeg`))
+                    //- img(src=(`../server/images/${currentDoctor.poster}`))
+            div.room__body
+                div.room__body__info
+                    div.room__body__info__data
+                        div.room__body__info__data__title
+                            div.room__body__info__data__title__room-title Палата №#{room.Num}
+                            //- div.room__body__info__data__title__rating #{currentDoctor.rating}
+                        div.room__body__info__data__additional #{room.TypeRoom}
+                div.room__body__description Вместимость: #{room.NumberBeds}
+                div.room__body__description Пациентов: #{room.NumberPatients}
+                div.room__body__description Этаж: #{room.Floor}
+                div.room__body__description Тип: #{room.TypeRoom}

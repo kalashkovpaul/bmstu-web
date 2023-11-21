@@ -2,16 +2,16 @@ import {events} from '../../consts/events';
 import {BaseView} from '../BaseView/BaseView';
 import {getURLArguments} from '../../modules/router';
 import {slider} from '@/utils/slider';
-import actorPageContent from '../../components/actor/actor.pug';
-import { actorPageData } from '@/types';
+import doctorPageContent from '../../components/doctor/doctor.pug';
+import { doctorPageData } from '@/types';
 import EventBus from '@/modules/eventBus';
 /**
- * @description Класс представления страницы актёра.
+ * @description Класс представления страницы доктора.
  */
-export class ActorView extends BaseView {
-  private actorID: string;
+export class DoctorView extends BaseView {
+  private doctorID: number;
   /**
-     * @description Создаёт представление страницы актёра.
+     * @description Создаёт представление страницы доктора.
      * @param { EventBus } eventBus Глобальная шина событий
      * @param { Object } data Данные, необходимые для создания представления
     */
@@ -24,20 +24,21 @@ export class ActorView extends BaseView {
      * контента страницы.
      */
   emitGetContent = () => {
-    const URLArgs = getURLArguments(window.location.pathname, '/actors/:ID');
-    this.eventBus.emit(events.actorPage.getContent, URLArgs);
+    const URLArgs = getURLArguments(window.location.pathname, '/doctors/:Id');
+    this.eventBus.emit(events.doctorPage.getContent, URLArgs);
   };
 
   /**
-     * @description Отрисовывает контент страницы актёра.
-     * @param { Object } data Информация об актёре (от имени до фильмографии)
+     * @description Отрисовывает контент страницы доктора.
+     * @param { Object } doctor Информация об докторе (от имени до фильмографии)
      */
-  renderContent = (data: actorPageData) => {
-    if (!data) {
+  renderContent = (doctor: doctorPageData) => {
+    if (!doctor) {
       return;
     }
-    this.actorID = data.actor.ID;
-    const template = actorPageContent(data);
+    console.log(doctor);
+    this.doctorID = doctor.Id;
+    const template = doctorPageContent({doctor: doctor});
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;

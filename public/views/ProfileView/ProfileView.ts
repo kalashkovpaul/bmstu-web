@@ -6,7 +6,7 @@ import profileSettings from '../../components/profile/profileInfo/profileInfo.pu
 import profileReview from '../../components/profile/profileReview/profileReview.pug';
 import profileBookmark from '../../components/profile/profileBookmark/profileBookmark.pug';
 import EventBus from '@/modules/eventBus';
-import { userData, profileUserData, bookmarkResponse, bookmarkCreateRequest } from '@/types';
+import { userData, profileUserData, bookmarkResponse, bookmarkCreateRequest, renderBookmarData } from '@/types';
 import { createElementFromHTML } from '@/utils/utils';
 
 /**
@@ -50,7 +50,7 @@ export class ProfileView extends BaseView {
  * @description Отрисовывает страницу профиля (часть с личными подборками).
  * @param { object } data Данные о подборках пользователя
  */
-  renderBookmarks = (data: any) => {
+  renderBookmarks = (data: renderBookmarData) => {
     const profileBookmarks = document.querySelector('.profile-bookmarks');
     if (profileBookmarks) {
       data.isThisUser = this.userData.isThisUser;
@@ -94,7 +94,7 @@ export class ProfileView extends BaseView {
       isThisUser: this.userData.isThisUser
     };
     if (profileBookmarksContainer) {
-      const newBookmarkElement = createElementFromHTML(profileBookmark(newBookmark)) as HTMLElement;
+      const newBookmarkElement = createElementFromHTML(profileBookmark(newBookmark) as string) as HTMLElement;
       profileBookmarksContainer.innerHTML += newBookmarkElement.querySelector('.bookmark-element')?.outerHTML;
     }
     this.addCreateBookmarkButtonListener();
@@ -232,7 +232,7 @@ export class ProfileView extends BaseView {
           return;
         }
         const fileList = target.files as FileList;
-        const file = fileList[0] as File;
+        const file = fileList[0];
         if (!file) {
           return
         }

@@ -89,15 +89,16 @@ export const events = {
         createCollection: "patientPage:createCollection",
         askToLog: "patientPage:askToLog",
         createCollectionSuccess: "patientPage:createCollectionSuccess",
+        deletePatient: "patientPage:deletePatient",
     },
 
-    actorPage: {
+    doctorPage: {
         render: {
-            content: "actorPage:renderContent",
-            page: "actorPage:renderPage",
+            content: "doctorPage:renderContent",
+            page: "doctorPage:renderPage",
         },
-        getContent: "actorPage:getContent",
-        getJobContent: "actorPage:getJobContent",
+        getContent: "doctorPage:getContent",
+        getJobContent: "doctorPage:getJobContent",
     },
 
     profilePage: {

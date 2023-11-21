@@ -3,18 +3,14 @@ import "./index.scss";
 import { regularRoutes } from "@/consts/routes";
 import { Router } from "@/modules/router";
 import { AuthController } from "@/controllers/AuthController";
-import { SingleCollectionController } from "@/controllers/SingleCollectionController";
-import { SingleBookmarkController } from "@/controllers/SingleBookmarkController";
+import { RoomController } from "@/controllers/RoomController";
 import { CollectionsController } from "@/controllers/CollectionsController";
 import { PatientController } from "@/controllers/PatientController";
 import { ProfileController } from "@/controllers/ProfileController";
-import { ActorController } from "@/controllers/ActorController";
+import { SingleDoctorController } from "@/controllers/SingleDoctorController";
 import { HeaderController } from "./controllers/HeaderController";
 import { GenresController } from "./controllers/GenresController";
 import { DoctorsController } from "./controllers/DoctorsController";
-import { PremiersController } from "./controllers/PremiersController";
-import { AnnouncedController } from "./controllers/AnnouncedController";
-import { SearchController } from "./controllers/SearchController";
 
 // import { initializeApp } from 'firebase/app';
 import { getMessaging, onMessage, getToken } from 'firebase/messaging';
@@ -68,33 +64,25 @@ import { getMessaging, onMessage, getToken } from 'firebase/messaging';
 export const root = document.getElementById("root");
 const headerController = new HeaderController;
 const authController = new AuthController();
-const actorController = new ActorController();
+const actorController = new SingleDoctorController();
 const collectionsController = new CollectionsController();
 const movieController = new PatientController();
 const profileController = new ProfileController();
-const singleCollectionController = new SingleCollectionController();
-const singleBookmarkController = new SingleBookmarkController();
+const singleCollectionController = new RoomController();
 const genresController = new GenresController();
 const singleGenreController = new DoctorsController();
-const premiersController = new PremiersController();
-const announcedController = new AnnouncedController();
-const searchController = new SearchController();
 
 const router = new Router(root as HTMLElement);
 
 router.register(regularRoutes.homePage, collectionsController)
   .register(regularRoutes.doctorsPage, singleGenreController)
-  .register(regularRoutes.singleCollectionPage, singleCollectionController)
-  .register(regularRoutes.singleBookmarkPage, singleBookmarkController)
+  .register(regularRoutes.rooms, singleCollectionController)
   .register(regularRoutes.patientPage, movieController)
-  .register(regularRoutes.actorPage, actorController)
+  .register(regularRoutes.singleDoctorPage, actorController)
   .register(regularRoutes.loginPage, authController)
   .register(regularRoutes.registrationPage, authController)
   .register(regularRoutes.collectionsPage, collectionsController)
   .register(regularRoutes.patientPage, movieController)
   .register(regularRoutes.profilePage, profileController)
   .register(regularRoutes.genresPage, genresController)
-  .register(regularRoutes.premiersPage, premiersController)
-  .register(regularRoutes.announcedPage, announcedController)
-  .register(regularRoutes.search, searchController)
   .start();

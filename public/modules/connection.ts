@@ -1,6 +1,6 @@
 import { statuses } from "@/consts/statuses";
 import { urls } from "@/consts/urls";
-import { bookmarkCreateRequest, bookmarkRequest, loginData, personalData, ratingRequest, registerData, requestParams, requestParamsData, reviewRequest, bookmarkDeleteRequest, bookmarkChangePrivateRequest,
+import { bookmarkCreateRequest, bookmarkRequest, loginData, personalData, ratingRequest, registerData, requestParams, requestParamsData, reviewRequest, patientDeleteRequest, bookmarkChangePrivateRequest,
 bookmarkChangeTitleRequest } from "@/types";
 
 let CSRFToken: string | null = null;
@@ -98,12 +98,12 @@ export const sendRequestAvatar = async (params: requestParamsData) => {
  * @returns { object } Ответ с сервера
  */
 export const checkAuth = async () => {
-    const params: requestParams = {
-        url: urls.api.checkAuth,
-        method: "GET",
-        credentials: "include",
-        body: null,
-    };
+    // const params: requestParams = {
+    //     url: urls.api.checkAuth,
+    //     method: "GET",
+    //     credentials: "include",
+    //     body: null,
+    // };
 
     try {
         // return await sendRequest(params);
@@ -202,13 +202,12 @@ export const register = async (user: registerData) => {
 };
 
 /**
- * @description Получает с сервера данные о конкретной подборке фильмов.
- * @param { string } collectionID ID запрашиваемой подборки
+ * @description Получает с сервера данные о палатах.
  * @returns { object } Ответ с сервера
  */
-export const getSingleCollection = async (collectionID: string) => {
+export const getSingleCollection = async () => {
     const params: requestParams = {
-        url: `${urls.api.singleCollection}/${collectionID}`,
+        url: `${urls.api.rooms}`,
         method: "GET",
         credentials: null,
         body: null,
@@ -228,7 +227,7 @@ export const getSingleCollection = async (collectionID: string) => {
  */
 export const getSingleBookmark = async (bookmarkID: string) => {
     const params: requestParams = {
-        url: `${urls.api.singleCollection}/${bookmarkID}`,
+        url: `${urls.api.rooms}/${bookmarkID}`,
         method: "GET",
         credentials: null,
         body: null,
@@ -349,9 +348,9 @@ export const getPatients = async (id: string) => {
  * @param { string } id ID запрашиваемого пользователя
  * @returns { object } Ответ с сервера
  */
-export const getReview = async (id: string) => {
+export const getTreatments = async () => {
     const params: requestParams = {
-        url: `${urls.api.reviews}/${id}`,
+        url: `${urls.api.treatments}`,
         method: "GET",
         credentials: "include",
         body: null,
@@ -407,12 +406,12 @@ export const sendAvatar = async (formData: FormData, userID: string) => {
 
 /**
  * @description Получает с сервера данные о конкретной подборке фильмов.
- * @param { string } actorID ID запрашиваемой подборки
+ * @param { string } doctorID ID запрашиваемой подборки
  * @returns { object } Ответ с сервера
  */
-export const getActor = async (actorID: string) => {
+export const getDoctor = async (doctorID: string) => {
     const params: requestParams = {
-        url: `${urls.api.actor}/${actorID}`,
+        url: `${urls.api.doctor}/${doctorID}`,
         method: "GET",
         credentials: null,
         body: null,
@@ -455,7 +454,7 @@ export const removeMovieFromBookmark = async (bookmarkRequest: bookmarkRequest) 
     }
 };
 
-export const createBookmark = async (bookmarkCreateRequest: bookmarkCreateRequest) => {
+export const createPatient = async (bookmarkCreateRequest: bookmarkCreateRequest) => {
     const params: requestParams = {
         url: `${urls.api.createPatient}`,
         method: "POST",
@@ -470,12 +469,12 @@ export const createBookmark = async (bookmarkCreateRequest: bookmarkCreateReques
     }
 };
 
-export const deleteBookmark = async (bookmarkDeleteRequest: bookmarkDeleteRequest) => {
+export const deletePatient = async (patientDeleteRequest: patientDeleteRequest) => {
     const params: requestParams = {
-        url: `${urls.api.deleteBookmark}`,
-        method: "POST",
+        url: `${urls.api.deletePatient}/${patientDeleteRequest.patientId}`,
+        method: "DELETE",
         credentials: null,
-        body: JSON.stringify(bookmarkDeleteRequest),
+        body: JSON.stringify(patientDeleteRequest),
     };
 
     try {

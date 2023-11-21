@@ -6,9 +6,9 @@ div.content-wrapper
         div.patient-content
             div.poster-and-buttons
                 div.poster
-                    img.poster__img(src=`http://localhost/img/tmp_patient.png`)
+                    img.poster__img(src=`http://localhost/img/typical_patient.png`)
                 div.trailer.not-route
-                    div.trailer__btn Убрать из лечения
+                    a.trailer__btn(href='/') Убрать из лечения
                 div.patient-collection
 
             div.info
@@ -39,10 +39,10 @@ div.content-wrapper
                             div.patient-facts__fact__value #{patient.RoomNumberr}
 
             div.patient-review
-                div.patient-review__title Отзывы
-                //- div.review-list
-                //-     each singleReview, _ in reviews
-                //-         +reviewCard(singleReview)
+                div.patient-review__title Записи
+                div.review-list
+                    each singleReview, _ in patient.treatments
+                        +reviewCard(singleReview)
             div.send-review
-                div.send-review__title Оставить отзыв
+                div.send-review__title Создать запись
                 div.send-review__input

@@ -51,7 +51,7 @@
     border-radius: 2rem 0 0 2rem;
 }
 
-.slide {
+.carousel-slide {
     width: 100%;
     height: 100%;
     flex: 1 0 100%;
@@ -60,82 +60,82 @@
     background-position-y: center;
 }
 
-.slide:nth-child(1) {
+.carousel-slide:nth-child(1) {
     background-color: #49b293;
     background-image: url("http://localhost/img/carousel_1.png");
 }
 
-.slide:nth-child(2) {
+.carousel-slide:nth-child(2) {
     background-color: #b03532;
     background-image: url("http://localhost/img/carousel_2.jpeg");
 }
 
-.slide:nth-child(3) {
+.carousel-slide:nth-child(3) {
     background-color: #6a478f;
     background-image: url("http://localhost/img/carousel_3.jpeg");
 
 }
 
-.slide:nth-child(4) {
+.carousel-slide:nth-child(4) {
     background-color: #da6f2b;
     background-image: url("http://localhost/img/carousel_4.jpeg");
 }
 
-.slide:nth-child(5) {
+.carousel-slide:nth-child(5) {
     background-color: #b03532;
     background-image: url("http://localhost/img/carousel_5.jpeg");
 }
 
-.slide:nth-child(6) {
+.carousel-slide:nth-child(6) {
     background-color: #6a478f;
     background-image: url("http://localhost/img/carousel_6.jpeg");
 
 }
 
-.slide:nth-child(7) {
+.carousel-slide:nth-child(7) {
     background-color: #da6f2b;
     background-image: url("http://localhost/img/carousel_7.jpeg");
 }
 
-.slide:nth-child(8) {
+.carousel-slide:nth-child(8) {
     background-color: #b03532;
     background-image: url("http://localhost/img/carousel_8.jpeg");
 }
 
-.slide:nth-child(9) {
+.carousel-slide:nth-child(9) {
     background-color: #6a478f;
     background-image: url("http://localhost/img/carousel_9.jpeg");
 
 }
 
-.slide:nth-child(10) {
+.carousel-slide:nth-child(10) {
     background-color: #da6f2b;
     background-image: url("http://localhost/img/carousel_10.jpeg");
 }
 
-.slide:nth-child(11) {
+.carousel-slide:nth-child(11) {
     background-color: #6a478f;
     background-image: url("http://localhost/img/carousel_11.jpeg");
 
 }
 
-.slide:nth-child(12) {
+.carousel-slide:nth-child(12) {
     background-color: #da6f2b;
     background-image: url("http://localhost/img/carousel_12.png");
 }
 
-.slide:nth-child(13) {
+.carousel-slide:nth-child(13) {
     background-color: #b03532;
     background-image: url("http://localhost/img/carousel_13.jpeg");
 }
 
-.slide:nth-child(14) {
+.carousel-slide:nth-child(14) {
     background-color: #6a478f;
     background-image: url("http://localhost/img/carousel_14.jpeg");
 
 }
 
-.slide:nth-child(15) {
+.carousel-slide:nth-child(15) {
     background-color: #da6f2b;
     background-image: url("http://localhost/img/carousel_15.jpeg");
 }

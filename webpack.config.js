@@ -75,18 +75,18 @@ module.exports = {
             inject: (htmlPlugin) =>
                 basename(htmlPlugin.options.filename) === 'index.html',
         }),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: 'public/sw.js',
-                    to: '',
-                },
-                {
-                    from: 'public/firebase-messaging-sw.js',
-                    to: '',
-                },
-            ],
-        }),
+        // new CopyWebpackPlugin({
+        //     patterns: [
+        //         {
+        //             from: 'public/sw.js',
+        //             to: '',
+        //         },
+        //         {
+        //             from: 'public/firebase-messaging-sw.js',
+        //             to: '',
+        //         },
+        //     ],
+        // }),
     ],
     resolve: {
         plugins: [new TsconfigPathsPlugin()],

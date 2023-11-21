@@ -1,4 +1,4 @@
-import { getProfile, getPatients, getReview, sendSettingsChanges, sendAvatar, createBookmark } from "../modules/connection";
+import { getProfile, getPatients, getTreatments, sendSettingsChanges, sendAvatar, createPatient } from "../modules/connection";
 import { BaseModel } from "./BaseModel";
 import { statuses } from "../consts/statuses";
 import { events } from "../consts/events";
@@ -8,6 +8,7 @@ import { authModule } from "@/modules/auth";
 import { emptyField, errorInfo } from "@/consts/errors";
 import { authConfig } from "@/consts/authConfig";
 import { sleep } from "@/utils/sleep";
+/* eslint-disable @typescript-eslint/no-floating-promises */
 
 /**
  * @description Класс модели страницы профиля.
@@ -27,6 +28,7 @@ export class ProfileModel extends BaseModel {
                 this.eventBus.emit(events.app.errorPage);
             } if (response?.status === statuses.OK && response.parsedResponse) {
                 const profileData: profileUserData = response.parsedResponse;
+
                 (async () => {
                     await sleep(500);
                     profileData.isThisUser = authModule.user ? (user.Id == authModule.user.Id) : false;
@@ -55,22 +57,6 @@ export class ProfileModel extends BaseModel {
             }
         }).catch((e) => {
             console.log("Unexpected profileBookmarks error: ", e);
-        });
-    }
-
-    getReviews = (user: userData) => {
-        getReview(user.Id).then((response) => {
-            if (!response) {
-                this.eventBus.emit(events.app.errorPage);
-            } if (response?.status === statuses.OK && response.parsedResponse) {
-                this.eventBus.emit(
-                    events.profilePage.render.reviews, response.parsedResponse
-                );
-            } else if (response?.status === statuses.NOT_FOUND) {
-                this.eventBus.emit(events.app.errorPageText, "Такого пользователя нет");
-            }
-        }).catch((e) => {
-            console.log("Unexpected profileReview error: ", e);
         });
     }
 
@@ -122,7 +108,7 @@ export class ProfileModel extends BaseModel {
     }
 
     createPatient = (inputsData: bookmarkCreateRequest) => {
-        createBookmark(inputsData).then(
+        createPatient(inputsData).then(
             (response) => {
                 if (!response) { return; }
                 const parsed = <bookmarkResponse>response.parsedResponse;

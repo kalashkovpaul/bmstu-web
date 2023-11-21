@@ -1,5 +1,5 @@
 {
-  "name": "akino-codex",
+  "name": "psych-admin",
   "version": "1.0.0",
   "description": "",
   "main": "main.ts",
@@ -49,6 +49,7 @@
     "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^6.10.0",
     "babel-loader": "^8.2.3",
     "copy-webpack-plugin": "^10.2.4",
     "eslint": "^8.10.0",

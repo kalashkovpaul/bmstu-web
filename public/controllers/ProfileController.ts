@@ -25,10 +25,6 @@ export class ProfileController extends BaseController {
                 handler: this.model.getPatients,
             },
             {
-                event: events.profilePage.getReviews,
-                handler: this.model.getReviews,
-            },
-            {
                 event: events.profilePage.getContent,
                 handler: this.model.getContent,
             },
